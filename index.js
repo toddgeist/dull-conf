@@ -1,4 +1,10 @@
 'use strict';
+/**
+ * dull config module
+ * @type {_|exports|module.exports}
+ */
+
+
 const _ = require('lodash');
 const makeError  = require ('make-error')
 
@@ -43,15 +49,16 @@ const loader = (obj)=>{
 
 
 /**
- * main export
+ * Config
  * @type {{get: (function(string)), has: (function(string): boolean), load: (function(Object)), toJSON: (function(*=))}}
  */
-module.exports = {
+const config = {
 
   /**
-   * gets a part of the config
-   * with throw if misspelled
-   * @param path {string}
+   * Gets the value of a config. It will throw if misspelled.
+   * Use {@link bar} to check for a configs existannce without throwing.
+   * @param path {string} for ex 'db.password'
+   * @see has
    */
   get(path){
 
@@ -75,7 +82,8 @@ module.exports = {
 
 
   /**
-   *
+   * Checks to see if the config setting exists.
+   * it will not throw if it doesn't exist
    * @param path {string}
    * @returns {boolean}
    */
@@ -85,7 +93,7 @@ module.exports = {
 
 
   /**
-   * load a config object
+   * Load a config object.
    * @param obj {object}
    */
   load(obj){
@@ -98,3 +106,4 @@ module.exports = {
 
 };
 
+module.exports = config
