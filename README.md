@@ -16,6 +16,7 @@ But mostly it's just javascript, and not even that much.  90 lines of code with 
 
 ### Installation
 
+not live on npm yet. but when it is.
 ```
 $ npm install dullconfig
 ```
