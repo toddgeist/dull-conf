@@ -1,5 +1,3 @@
-
-
 const expect = require('expect.js')
 const config = require('../');
 
@@ -40,7 +38,7 @@ describe('Loaded with NODE_ENV not set' , function() {
     loadConfigForTest()
     console.log(config.get('email'));
     done()
-  })
+  });
 
 
   it('should work when obj has no default or env ' , function( done ) {
@@ -51,7 +49,7 @@ describe('Loaded with NODE_ENV not set' , function() {
   it('should get a default setting' , function( done ) {
     expect(config.get('db.url')).to.equal('this.is.the.default')
     done()
-  })
+  });
 
   it('should get the full object with null or "" path' , function( done ) {
     expect(config.get('')).to.be.an('object')
@@ -68,7 +66,7 @@ describe('Loaded with NODE_ENV not set' , function() {
 
     expect(shouldThrowBadPath).to.throwError(/Not Set!/);
     done()
-  })
+  });
 
   it('should throw an error with a undefined load ' , function( done ) {
     const shouldThrowBadLoad = () =>{
@@ -96,7 +94,7 @@ describe('Loaded with NODE_ENV set to "development"' , function() {
   it('should get a default setting' , function( done ) {
     expect(config.get('db.url')).to.equal('this.is.the.default')
     done()
-  })
+  });
 
   it('should get a ENV var' , function( done ) {
     expect(config.get('auth.secret')).to.equal(SECRET);
@@ -109,7 +107,7 @@ describe('Loaded with NODE_ENV set to "production"' , function() {
   before((done)=>{
     loadConfigForTest('production');
     done()
-  })
+  });
 
   it('should work when obj has no default or env ' , function( done ) {
     expect(config.get('email.to')).to.equal('todd@geistinteractive.com')
@@ -119,7 +117,7 @@ describe('Loaded with NODE_ENV set to "production"' , function() {
   it('should get a default setting' , function( done ) {
     expect(config.get('db.url')).to.equal('production')
     done()
-  })
+  });
 
   it('should get a default setting when not over written' , function( done ) {
     expect(config.get('db.userName')).to.equal(DB_USER_NAME)

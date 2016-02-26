@@ -11,7 +11,13 @@ let configStore = {};
 
 
 /**
- * merges defaults and environmental settings with the same file
+ * Custom Config Error
+ */
+const ConfigError = makeError('ConfigError');
+
+
+/**
+ * merges defaults and environmental settings with in the same file
  * @param obj
  * @returns {*}
  */
@@ -29,10 +35,8 @@ const loader = (obj)=>{
 
   // deep merge
   return _.merge({},obj.default,envObj)
+
 };
-
-const ConfigError = makeError('ConfigError');
-
 
 
 /**
@@ -40,7 +44,6 @@ const ConfigError = makeError('ConfigError');
  * @type {{get: (function(string)), has: (function(string): boolean), load: (function(Object)), toJSON: (function(*=))}}
  */
 module.exports = {
-
 
   /**
    * gets a part of the config
@@ -64,7 +67,9 @@ module.exports = {
       throw new ConfigError(msg)
     }
     return value
+
   },
+
 
   /**
    *
@@ -85,7 +90,8 @@ module.exports = {
     Object.keys(obj).map(( key )=>{
       configStore[key] = loader(obj[key])
     })
-  },
+
+  }
 
 };
 
