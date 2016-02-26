@@ -1,3 +1,4 @@
+[![API Doc](https://doclets.io/toddgeist/dull-config/master.svg)](https://doclets.io/toddgeist/dull-config/master)
 # dull-config
 Configuration should be dull. Less abracadabra.
 
@@ -136,3 +137,6 @@ user==='admin' // => true if DB_USER_NAME = 'admin'
 
 ```
 
+## API
+
+[Doclet link](https://doclets.io/toddgeist/dull-config/master)
