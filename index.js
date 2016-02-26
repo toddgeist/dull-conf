@@ -2,6 +2,7 @@
 /**
  * dull config module
  * @type {_|exports|module.exports}
+ * @private
  */
 
 
@@ -56,9 +57,9 @@ const config = {
 
   /**
    * Gets the value of a config. It will throw if misspelled.
-   * Use {@link bar} to check for a configs existannce without throwing.
+   * Use {@link has} to check for a configs existannce without throwing.
    * @param path {string} for ex 'db.password'
-   * @see has
+   * @see has {@link has}
    */
   get(path){
 
