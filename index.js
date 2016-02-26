@@ -1,7 +1,14 @@
 'use strict';
-const objectPath = require('object-path');
 const _ = require('lodash');
-const env = process.env.NODE_ENV || 'development';
+const makeError  = require ('make-error')
+
+
+/**
+ * private store for the config object
+ * @type {{}}
+ */
+let configStore = {};
+
 
 /**
  * merges defaults and environmental settings with the same file
@@ -10,22 +17,23 @@ const env = process.env.NODE_ENV || 'development';
  */
 const loader = (obj)=>{
 
+  let env = process.env.NODE_ENV || 'development';
   if(!obj.default){
-    return obj
+    // new object, avoid mutation
+    return Object.assign({},obj)
   }
-  let envObj = {}
+  let envObj = {};
   if(obj[env]){
     envObj = obj[env]
   }
 
-  return Object.assign({},obj.default,envObj )
+  // deep merge
+  return _.merge({},obj.default,envObj)
 };
 
-/**
- * private store for the config object
- * @type {{}}
- */
-const configStore = {};
+const ConfigError = makeError('ConfigError');
+
+
 
 /**
  * main export
@@ -41,19 +49,22 @@ module.exports = {
    */
   get(path){
 
-    if(!_.has(configStore, path)){
-      let msg = `ConfigError: the config "${path}" was not loaded. Check for typos`;
-      throw new Error(msg)
+    if(!path){
+      return configStore
     }
 
-    let value = objectPath.get(configStore, path );
+    if(!_.has(configStore, path)){
+      let msg = `Not Set!. The config "${path}" was not loaded. Check for typos or changed config names.`;
+      throw new ConfigError(msg)
+    }
+
+    let value = _.get(configStore, path );
     if(typeof value === 'undefined'){
-      let msg = `Config Error: the config "${path}" was set to undefined on load.`;
-      throw new Error(msg)
+      let msg = `Loaded Undefined!. The config "${path}" was loaded as undefined.`;
+      throw new ConfigError(msg)
     }
     return value
   },
-
 
   /**
    *
@@ -72,9 +83,9 @@ module.exports = {
   load(obj){
 
     Object.keys(obj).map(( key )=>{
-      configStore[key]=loader(obj[key])
+      configStore[key] = loader(obj[key])
     })
-  }
+  },
 
 };
 
