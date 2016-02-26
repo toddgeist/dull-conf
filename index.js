@@ -5,6 +5,7 @@ const makeError  = require ('make-error')
 
 /**
  * private store for the config object
+ * @private
  * @type {{}}
  */
 let configStore = {};
@@ -12,12 +13,14 @@ let configStore = {};
 
 /**
  * Custom Config Error
+ * @private
  */
 const ConfigError = makeError('ConfigError');
 
 
 /**
  * merges defaults and environmental settings with in the same file
+ * @private
  * @param obj
  * @returns {*}
  */
