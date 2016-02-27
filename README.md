@@ -18,7 +18,7 @@ Here are the goals
 This lets you compute your configs or load them from the network as JSON. You use process.env or command line args to set specific configs. You can put your config all in one file or in many files or in the startup file. Its up to you. You can even use validator or joi to validate your config since what you get out are plan JS objects.
 
 
-That's really it. Its not even that much code 90 loc with docs :-)  Not including dependancies.
+That's really it. Its not even that much code 125 loc with docs :-)  Not including dependancies.
 
 ### Installation
 
@@ -110,10 +110,29 @@ config.load({
 
 ```
 
+### Local Config Overrides
+Sometimes its nice to be able to load a local config file, that overrides settings for this particular local machine. This is useful for testing or old school deployments when you are running on an actual server somewhere. dull-config as a loadLocal() method to let you do this.
+
+Its important to note that in this case you need to specify the full path to the local config file. This is so it can be conditionally included if it exists, and ignored if it doesn't.
+
+**Important!** It's good practice to **NOT** check local config into your source control. If you want to remind your self of what goes in there, then check in an example. i.e. local.config.example.js
+
+_config/local.js_
+
+```js
+{
+    api: local.endpoint.com
+}
+```
+then in your setup after you've loaded everything else.
+
+```js
+config.loadLocal(__dirname + '/config/local.js)
+```
+
 ### Secrets
 
 Don't put secret things in directly in the config. Its bad. Instead use Environmental variables, and then bring them into the config using `process.env.SECRET` like this
-
 
 _config/db.js_
 ```js
@@ -124,6 +143,7 @@ module.export = {
 ```
 
 _index.js_
+
 ```js
 const config = require('config')
 config.load({
