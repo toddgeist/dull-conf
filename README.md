@@ -5,15 +5,20 @@ Configuration should be dull. Less abracadabra.
 node.js 4x and up. Not sure about browsers
 
 ## Philosophy
-Just use plain javascript files for configuration. This allows for comments and computed configurations. You can break up the configuration into as many files as you like. They can be where ever you like.
+After looking around at the truly awesome nconf, convict, node-config I decided I wanted to try something simpler.
 
-Keep configs for different environments in the same file. I find this is easier than swiching back and forth between production.config.js and development.config.js
+Here are the goals
 
-Keep the loading approach simple. No globbing for files. Just load require()'d config modules.
+* Plain JavaScript Objects, both in and out.
+* Keep different environment setting in the same file
+* Load secret things from the environment i.e. `process.env.PASSWORD`
+* No magic searching for config files or file glob loading. Just load files with require()
+* Protect from typos and name changes by throwing when accessing an unknown config
 
-Throw errors when requested configs are missing or undefined. This helps protect from typos, and from computed settings that might return undefined.
+This lets you compute your configs or load them from the network as JSON. You use process.env or command line args to set specific configs. You can put your config all in one file or in many files or in the startup file. Its up to you. You can even use validator or joi to validate your config since what you get out are plan JS objects.
 
-But mostly it's just javascript, and not even that much.  90 lines of code with docs :-)  Not including dependancies.
+
+That's really it. Its not even that much code 90 loc with docs :-)  Not including dependancies.
 
 ### Installation
 
@@ -26,7 +31,7 @@ $ npm install dullconfig
 
 ```js
 const config = require('config')
-
+I
 // you can load an object
 config.load({
     email : {
