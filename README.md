@@ -127,7 +127,7 @@ _config/local.js_
 then in your setup after you've loaded everything else.
 
 ```js
-config.loadLocal(__dirname + '/config/local.js)
+config.loadLocal(__dirname + '/config/local.js')
 ```
 
 ### Secrets
