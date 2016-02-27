@@ -133,3 +133,41 @@ describe('Loaded with NODE_ENV set to "production"' , function() {
   })
 
 });
+
+describe('localConfig', function () {
+
+  before((done)=>{
+    loadConfigForTest()
+    done()
+  });
+
+  it('should not throw, if its not there' , function( done ) {
+    const shouldNotThrow = ()=>{
+      config.loadLocal('../examples/NOTHERE')
+    };
+    expect(shouldNotThrow).not.to.throwError();
+    done()
+  });
+
+  it('should throw if an object is passed' , function( done ) {
+    const shouldThrow = () => {
+      config.loadLocal(require('../examples/local'))
+    };
+    expect(shouldThrow).to.throwError();
+    done()
+  });
+
+  it('should return false if the file is not there' , function( done ) {
+    expect(config.loadLocal(__dirname + '/../examples/nothere')).to.be(false);
+    done()
+  });
+
+  it('should override a previously loaded config' , function( done ) {
+    expect(
+      config.loadLocal(__dirname + '/../examples/local')
+    ).to.be(true);
+    expect(config.get('db.url')).to.be('local');
+    done();
+  });
+
+});
