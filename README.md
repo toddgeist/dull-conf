@@ -22,9 +22,8 @@ That's really it. Its not even that much code 90 loc with docs :-)  Not includin
 
 ### Installation
 
-not live on npm yet. but when it is.
 ```
-$ npm install dullconfig
+$ npm install dull-config
 ```
 
 ### Usage
