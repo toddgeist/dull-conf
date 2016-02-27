@@ -7,7 +7,7 @@
 
 
 const _ = require('lodash');
-const makeError  = require ('make-error')
+const makeError  = require ('make-error');
 
 
 /**
