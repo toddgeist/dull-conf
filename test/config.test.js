@@ -82,7 +82,7 @@ describe('Loaded with NODE_ENV not set' , function() {
 describe('Loaded with NODE_ENV set to "development"' , function() {
 
   before((done)=>{
-    loadConfigForTest()
+    loadConfigForTest('development');
     done()
   });
 
