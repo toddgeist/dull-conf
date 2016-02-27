@@ -1,6 +1,6 @@
 {
   "name": "dull-config",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "simple dull and boring config",
   "main": "index.js",
   "scripts": {
