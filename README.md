@@ -113,7 +113,6 @@ config.load({
 ### Local Config Overrides
 Sometimes its nice to be able to load a local config file, that overrides settings for this particular local machine. This is useful for testing or old school deployments when you are running on an actual server somewhere. dull-config as a loadLocal() method to let you do this.
 
-Its important to note that in this case you need to specify the full path to the local config file. This is so it can be conditionally included if it exists, and ignored if it doesn't.
 
 **Important!** It's good practice to **NOT** check local config into your source control. If you want to remind your self of what goes in there, then check in an example. i.e. local.config.example.js
 
@@ -124,10 +123,14 @@ _config/local.js_
     api: local.endpoint.com
 }
 ```
-then in your setup after you've loaded everything else.
+then in your setup after you've loaded everything else. Try to load it using require.  If you use try catch it'll silently skip it if it isn't there.
 
 ```js
-config.loadLocal(__dirname + '/config/local.js')
+try{
+    config.loadLocal(require('/config/local.js'))
+}catch(e){
+    // no-op
+}
 ```
 
 ### Secrets

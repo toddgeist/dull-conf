@@ -106,22 +106,15 @@ const config = {
   },
 
   /**
-   * loads a config object that will merge with the currentStore
-   * useful for testing, local dev setups, and old school deployments.
-   * @param fullPath a full path to the file. a relative path won't work
-   * @returns {boolean} If the file loaded it returns true. If not it returns false
+   * loads a config Object
+   * useful for testing and local developement
+   * NO environmental variable merging done
+   * @param object a config Object
+   * @returns {boolean}
    */
-  loadLocal(fullPath){
-    if(fullPath && typeof fullPath  != 'string'){
-      throw new TypeError('loadLocal requires a string')
-    }
-    try{
-      let configModule = require(fullPath)
-      configStore = _.merge({},configStore,configModule)
+  loadLocal(object){
+      configStore = _.merge({},configStore,object)
       return true
-    }catch(e){
-      return false;
-    }
   }
 
 };
